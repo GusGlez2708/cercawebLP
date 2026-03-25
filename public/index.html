@@ -17,7 +17,7 @@
     <header class="bg-brand-blue shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-16 mr-4">
+                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-12 md:h-16 mr-4">
             </div>
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#inicio"
@@ -39,6 +39,28 @@
                     <span>Cotiza Ya</span>
                 </a>
             </div>
+            <!-- Hamburger Button (mobile only) -->
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none" aria-label="Menú">
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden">
+            <nav class="flex flex-col items-center space-y-4 py-6 px-6">
+                <a href="#inicio" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">INICIO</a>
+                <a href="#nosotros" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">NOSOTROS</a>
+                <a href="#servicios" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">SERVICIOS</a>
+                <a href="#proyectos" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">PROYECTOS</a>
+                <a href="#contacto" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">CONTACTO</a>
+                <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
+                    target="_blank"
+                    class="bg-brand-orange text-white px-6 py-3 rounded-lg font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-2 mt-2">
+                    <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-5 h-5">
+                    <span>Cotiza Ya</span>
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -265,7 +287,7 @@
                     <div>
                         <h4 class="text-xl font-bold text-brand-orange mb-4">Aceptamos las siguientes formas de pago
                         </h4>
-                        <div class="flex space-x-6">
+                        <div class="flex flex-wrap justify-center gap-6">
                             <div class="text-center">
                                 <div class="bg-brand-orange p-3 rounded-full mb-2 inline-block"><img
                                         src="assets/buttons/cheque.png" alt="Cheque" class="w-8 h-8"></div>

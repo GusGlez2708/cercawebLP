@@ -125,3 +125,84 @@
 .stat-number.pulse {
     animation: count-up-pulse 0.4s ease-out;
 }
+
+/* ── Mobile Menu ── */
+.mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out;
+    background-color: #031630;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-menu.open {
+    max-height: 400px;
+}
+
+/* Hamburger animation */
+.hamburger-active .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger-active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-active .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 767px) {
+    /* Hero */
+    #inicio h1 {
+        font-size: 1.75rem;
+        line-height: 1.3;
+    }
+
+    /* Stats */
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    .stat-item {
+        min-width: 120px;
+    }
+    .stats-counter-grid {
+        gap: 1.5rem;
+    }
+
+    /* FABs */
+    .fixed.bottom-5.right-5 {
+        bottom: 12px;
+        right: 12px;
+    }
+    .fixed.bottom-5.right-5 a,
+    .fixed.bottom-5.right-5 button {
+        width: 48px;
+        height: 48px;
+    }
+    .fixed.bottom-5.right-5 a img {
+        width: 28px;
+        height: 28px;
+    }
+    .fixed.bottom-5.right-5 a svg,
+    .fixed.bottom-5.right-5 button svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Sections padding */
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+
+    /* Contact section map */
+    .h-80 {
+        height: 250px;
+    }
+
+    /* Lightbox */
+    .lightbox-content {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+}

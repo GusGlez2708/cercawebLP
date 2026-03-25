@@ -10,6 +10,35 @@ tailwind.config = {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    // --- Mobile Hamburger Menu Logic ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (hamburgerBtn && mobileMenu) {
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            hamburgerBtn.classList.toggle('hamburger-active');
+        });
+
+        // Close menu when clicking a nav link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburgerBtn.classList.remove('hamburger-active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+                hamburgerBtn.classList.remove('hamburger-active');
+            }
+        });
+    }
+
     // --- Carousel Logic ---
     const images = [
         { type: 'image', src: 'assets/images/seguridad1.jpg' }, { type: 'image', src: 'assets/images/seguridad2.jpg' },
@@ -42,15 +71,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     allContent.forEach(item => {
         const div = document.createElement('div');
-        div.className = 'flex-shrink-0 w-64 mx-4 select-none';
+        // Responsive: smaller on mobile, bigger on desktop
+        div.className = 'flex-shrink-0 w-40 md:w-64 mx-2 md:mx-4 select-none';
         if (item.type === 'image') {
-            div.innerHTML = `<img src="${item.src}" class="w-64 h-64 rounded-full object-cover border-4 border-brand-orange cursor-pointer transform hover:scale-105 transition-transform duration-300 pointer-events-none">`;
+            div.innerHTML = `<img src="${item.src}" class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-brand-orange cursor-pointer transform hover:scale-105 transition-transform duration-300 pointer-events-none">`;
             div.onclick = () => openLightbox(div, 'image');
         } else {
             div.className += ' relative cursor-pointer';
             div.innerHTML = `
-                <video class="w-64 h-64 rounded-full object-cover border-4 border-brand-orange pointer-events-none"><source src="${item.src}" type="video/mp4"></video>
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full pointer-events-none"><svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></div>
+                <video class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-brand-orange pointer-events-none"><source src="${item.src}" type="video/mp4"></video>
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full pointer-events-none"><svg class="w-12 h-12 md:w-16 md:h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></div>
             `;
             div.onclick = () => openLightbox(div, 'video');
         }
@@ -72,6 +102,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         requestAnimationFrame(runAutoScroll);
     }
+
+    // Touch support for mobile carousel
+    scrollingContainer.addEventListener('touchstart', (e) => {
+        isDown = true;
+        autoScroll = false;
+        startX = e.touches[0].pageX;
+    }, { passive: true });
+
+    scrollingContainer.addEventListener('touchend', () => {
+        isDown = false;
+        autoScroll = true;
+    });
+
+    scrollingContainer.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX;
+        const dx = x - startX;
+        if (dx === 0) return;
+        startX = x;
+        const halfWidth = scrollingContent.scrollWidth / 2;
+        let newScrollLeft = scrollingContainer.scrollLeft - dx;
+        if (newScrollLeft < 0) newScrollLeft += halfWidth;
+        else if (newScrollLeft >= halfWidth) newScrollLeft -= halfWidth;
+        scrollingContainer.scrollLeft = newScrollLeft;
+    }, { passive: true });
 
     scrollingContainer.addEventListener('mousedown', (e) => {
         isDown = true;
@@ -238,9 +293,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(contactForm);
 
-            fetch('../backend/send_email.php', {
+            fetch('/api/send-email', {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData))
             })
                 .then(response => {
                     if (!response.ok) {
