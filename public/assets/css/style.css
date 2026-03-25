@@ -75,3 +75,53 @@
 .nav-link.nav-active::after {
     width: 70%;
 }
+
+/* ── Animated Stats Counter ── */
+.stats-counter-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 160px;
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #eb7627;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.05em;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover .stat-number {
+    transform: scale(1.08);
+}
+
+.stat-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+@keyframes count-up-pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.stat-number.pulse {
+    animation: count-up-pulse 0.4s ease-out;
+}

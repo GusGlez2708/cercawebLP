@@ -9,7 +9,7 @@ tailwind.config = {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // --- Carousel Logic ---
     const images = [
         { type: 'image', src: 'assets/images/seguridad1.jpg' }, { type: 'image', src: 'assets/images/seguridad2.jpg' },
@@ -61,13 +61,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let autoScroll = true;
     let isDown = false;
     let startX;
-    let scrollLeft;
 
     function runAutoScroll() {
         if (autoScroll) {
             scrollingContainer.scrollLeft += 1;
             if (scrollingContainer.scrollLeft >= scrollingContent.scrollWidth / 2) {
-                scrollingContainer.scrollLeft = 0;
+                // Subtract half width for perfectly seamless visual
+                scrollingContainer.scrollLeft -= (scrollingContent.scrollWidth / 2);
             }
         }
         requestAnimationFrame(runAutoScroll);
@@ -77,8 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isDown = true;
         autoScroll = false;
         scrollingContainer.classList.add('active');
-        startX = e.pageX - scrollingContainer.offsetLeft;
-        scrollLeft = scrollingContainer.scrollLeft;
+        startX = e.pageX;
     });
 
     scrollingContainer.addEventListener('mouseleave', () => {
@@ -96,9 +95,25 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollingContainer.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - scrollingContainer.offsetLeft;
-        const walk = (x - startX) * 2; //scroll-fast
-        scrollingContainer.scrollLeft = scrollLeft - walk;
+
+        const x = e.pageX;
+        const dx = x - startX;
+
+        if (dx === 0) return;
+        startX = x; // Reset relative start for the next tick
+
+        const halfWidth = scrollingContent.scrollWidth / 2;
+        // Calculate abstract new scroll left before browser clamps it
+        let newScrollLeft = scrollingContainer.scrollLeft - dx * 2;
+
+        // Wrap logically
+        if (newScrollLeft < 0) {
+            newScrollLeft += halfWidth;
+        } else if (newScrollLeft >= halfWidth) {
+            newScrollLeft -= halfWidth;
+        }
+
+        scrollingContainer.scrollLeft = newScrollLeft;
     });
 
     runAutoScroll();
@@ -109,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightboxVideo = document.getElementById('lightbox-video');
     const lightboxContentWrapper = document.getElementById('lightbox-content-wrapper');
 
-    window.openLightbox = function(element, type) {
+    window.openLightbox = function (element, type) {
         event.stopPropagation();
         if (type === 'image') {
             lightboxImg.src = element.getElementsByTagName('img')[0].src;
@@ -123,14 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
         lightbox.style.display = 'flex';
     }
 
-    window.closeLightbox = function() {
+    window.closeLightbox = function () {
         lightbox.style.display = 'none';
         lightboxVideo.pause();
         lightboxImg.src = '';
         lightboxVideo.src = '';
     }
 
-    lightboxContentWrapper.addEventListener('click', function(event) {
+    lightboxContentWrapper.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 
@@ -175,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nativeSelect.value = option.value;
                 // Update displayed text
                 selectedText.textContent = option.textContent;
-                if(option.value === "") {
+                if (option.value === "") {
                     selectedText.classList.add('text-gray-500');
                 } else {
                     selectedText.classList.remove('text-gray-500');
@@ -212,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const successAlert = document.getElementById('form-success');
         const errorAlert = document.getElementById('form-error');
 
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             submitButton.disabled = true;
@@ -227,39 +242,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    // Try to get error message from JSON body
-                    return response.json().then(err => { throw new Error(err.message) });
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    successAlert.textContent = data.message;
-                    successAlert.classList.remove('hidden');
-                    contactForm.reset();
-                    // Reset custom select to placeholder
-                    const selectedText = document.getElementById('custom-select-selected-text');
-                    selectedText.textContent = 'Seleccione un servicio';
-                    selectedText.classList.add('text-gray-500');
-                    Array.from(document.getElementById('custom-select-options').children).forEach(child => child.classList.remove('selected'));
-                } else {
-                    throw new Error(data.message || 'Ocurrió un error desconocido.');
-                }
-            })
-            .catch(error => {
-                errorAlert.textContent = error.message || 'No se pudo conectar con el servidor. Revisa tu conexión a internet.';
-                errorAlert.classList.remove('hidden');
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Cotización';
-                setTimeout(() => {
-                    successAlert.classList.add('hidden');
-                    errorAlert.classList.add('hidden');
-                }, 6000);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        // Try to get error message from JSON body
+                        return response.json().then(err => { throw new Error(err.message) });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        successAlert.textContent = data.message;
+                        successAlert.classList.remove('hidden');
+                        contactForm.reset();
+                        // Reset custom select to placeholder
+                        const selectedText = document.getElementById('custom-select-selected-text');
+                        selectedText.textContent = 'Seleccione un servicio';
+                        selectedText.classList.add('text-gray-500');
+                        Array.from(document.getElementById('custom-select-options').children).forEach(child => child.classList.remove('selected'));
+                    } else {
+                        throw new Error(data.message || 'Ocurrió un error desconocido.');
+                    }
+                })
+                .catch(error => {
+                    errorAlert.textContent = error.message || 'No se pudo conectar con el servidor. Revisa tu conexión a internet.';
+                    errorAlert.classList.remove('hidden');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Cotización';
+                    setTimeout(() => {
+                        successAlert.classList.add('hidden');
+                        errorAlert.classList.add('hidden');
+                    }, 6000);
+                });
         });
     }
 
@@ -292,5 +307,45 @@ document.addEventListener('DOMContentLoaded', function() {
         sections.forEach(section => {
             observer.observe(section);
         });
+    }
+
+    // --- Animated Stats Counter ---
+    const statItems = document.querySelectorAll('.stat-item');
+    if (statItems.length) {
+        const animateCounter = (countEl, target, duration) => {
+            let start = 0;
+            const step = timestamp => {
+                if (!start) start = timestamp;
+                const elapsed = timestamp - start;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                countEl.textContent = Math.floor(eased * target);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    countEl.textContent = target;
+                    // Pulse effect on finish
+                    const numEl = countEl.closest('.stat-number');
+                    numEl.classList.add('pulse');
+                    numEl.addEventListener('animationend', () => numEl.classList.remove('pulse'), { once: true });
+                }
+            };
+            requestAnimationFrame(step);
+        };
+
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const item = entry.target;
+                    const target = parseInt(item.dataset.target, 10);
+                    const countEl = item.querySelector('.stat-count');
+                    animateCounter(countEl, target, 1800);
+                    obs.unobserve(item); // animate only once
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statItems.forEach(item => counterObserver.observe(item));
     }
 });
