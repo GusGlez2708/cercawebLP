@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(contactForm);
 
-            fetch('/api/send-email.js', {
+            fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Object.fromEntries(formData))
