@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Only allow POST
     if (req.method !== 'POST') {
         res.status(405).json({ status: 'error', message: 'Método de solicitud no válido.' });
@@ -65,4 +65,4 @@ module.exports = async function handler(req, res) {
         }
         res.status(500).json({ status: 'error', message: userMessage });
     }
-};
+}
