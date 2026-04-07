@@ -204,6 +204,120 @@ document.addEventListener('DOMContentLoaded', function () {
         event.stopPropagation();
     });
 
+    // --- Full Gallery Modal Logic ---
+    const galleryModal = document.getElementById('gallery-modal');
+    const galleryGrid = document.getElementById('gallery-grid');
+    const openGalleryBtn = document.getElementById('open-gallery-btn');
+    const closeGalleryBtn = document.getElementById('close-gallery-btn');
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+
+    // Helper: extract category from filename
+    function getCategory(src) {
+        const filename = src.split('/').pop().toLowerCase();
+        if (filename.startsWith('seguridad')) return 'seguridad';
+        if (filename.startsWith('privacidad')) return 'privacidad';
+        if (filename.startsWith('galvanizada')) return 'galvanizada';
+        if (filename.startsWith('rejacero')) return 'rejacero';
+        return 'otro';
+    }
+
+    // Populate gallery grid
+    function populateGallery(filter) {
+        galleryGrid.innerHTML = '';
+        const filtered = filter === 'all' ? images : images.filter(item => getCategory(item.src) === filter);
+
+        filtered.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.dataset.category = getCategory(item.src);
+
+            if (item.type === 'image') {
+                div.innerHTML = `<img src="${item.src}" alt="Proyecto" loading="lazy">`;
+                div.addEventListener('click', () => {
+                    window.openLightboxDirect(item.src, 'image');
+                });
+            } else {
+                div.innerHTML = `
+                    <video preload="none"><source src="${item.src}" type="video/mp4"></video>
+                    <div class="gallery-item-video-icon">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                    </div>
+                `;
+                div.addEventListener('click', () => {
+                    window.openLightboxDirect(item.src, 'video');
+                });
+            }
+            galleryGrid.appendChild(div);
+        });
+    }
+
+    // Direct lightbox open (takes src directly, not element)
+    window.openLightboxDirect = function (src, type) {
+        if (type === 'image') {
+            lightboxImg.src = src;
+            lightboxImg.classList.remove('hidden');
+            lightboxVideo.classList.add('hidden');
+        } else if (type === 'video') {
+            lightboxVideo.src = src;
+            lightboxVideo.classList.remove('hidden');
+            lightboxImg.classList.add('hidden');
+        }
+        lightbox.style.display = 'flex';
+    };
+
+    // Open gallery
+    if (openGalleryBtn) {
+        openGalleryBtn.addEventListener('click', () => {
+            populateGallery('all');
+            // Reset filter buttons
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.gallery-filter-btn[data-filter="all"]').classList.add('active');
+            // Show modal
+            galleryModal.style.display = 'flex';
+            // Trigger animation
+            requestAnimationFrame(() => {
+                galleryModal.classList.add('open');
+            });
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    // Close gallery
+    function closeGallery() {
+        galleryModal.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            galleryModal.style.display = 'none';
+        }, 300);
+    }
+
+    if (closeGalleryBtn) {
+        closeGalleryBtn.addEventListener('click', closeGallery);
+    }
+
+    // Close gallery on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (lightbox.style.display === 'flex') {
+                window.closeLightbox();
+            } else if (galleryModal.classList.contains('open')) {
+                closeGallery();
+            }
+        }
+    });
+
+    // Filter buttons
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            populateGallery(filter);
+            // Scroll gallery grid back to top
+            galleryGrid.scrollTop = 0;
+        });
+    });
+
     // --- FAB Logic ---
     const phoneFab = document.getElementById('phone-fab');
     const phoneOptions = document.getElementById('phone-options');
