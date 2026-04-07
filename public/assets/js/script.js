@@ -173,14 +173,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     runAutoScroll();
 
-    // --- Lightbox Logic ---
+    // --- Lightbox Logic with Navigation ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxVideo = document.getElementById('lightbox-video');
     const lightboxContentWrapper = document.getElementById('lightbox-content-wrapper');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
 
+    let currentLightboxIndex = -1;
+    let currentLightboxList = [];
+
+    // Open lightbox for carousel (no navigation)
     window.openLightbox = function (element, type) {
         event.stopPropagation();
+        currentLightboxList = [];
+        currentLightboxIndex = -1;
         if (type === 'image') {
             lightboxImg.src = element.getElementsByTagName('img')[0].src;
             lightboxImg.classList.remove('hidden');
@@ -190,19 +198,99 @@ document.addEventListener('DOMContentLoaded', function () {
             lightboxVideo.classList.remove('hidden');
             lightboxImg.classList.add('hidden');
         }
+        updateLightboxNav();
         lightbox.style.display = 'flex';
+    };
+
+    // Open lightbox from gallery (with navigation)
+    window.openLightboxDirect = function (src, type, filteredList, index) {
+        currentLightboxList = filteredList || [];
+        currentLightboxIndex = (index !== undefined) ? index : -1;
+        showLightboxContent(src, type);
+        updateLightboxNav();
+        lightbox.style.display = 'flex';
+    };
+
+    function showLightboxContent(src, type) {
+        lightboxVideo.pause();
+        if (type === 'image') {
+            lightboxImg.src = src;
+            lightboxImg.classList.remove('hidden');
+            lightboxVideo.classList.add('hidden');
+            lightboxVideo.src = '';
+        } else {
+            lightboxVideo.src = src;
+            lightboxVideo.classList.remove('hidden');
+            lightboxImg.classList.add('hidden');
+            lightboxImg.src = '';
+        }
     }
+
+    function updateLightboxNav() {
+        if (!lightboxPrev || !lightboxNext) return;
+        if (currentLightboxList.length <= 1 || currentLightboxIndex === -1) {
+            lightboxPrev.classList.add('hidden');
+            lightboxNext.classList.add('hidden');
+            return;
+        }
+        if (currentLightboxIndex <= 0) {
+            lightboxPrev.classList.add('hidden');
+        } else {
+            lightboxPrev.classList.remove('hidden');
+        }
+        if (currentLightboxIndex >= currentLightboxList.length - 1) {
+            lightboxNext.classList.add('hidden');
+        } else {
+            lightboxNext.classList.remove('hidden');
+        }
+    }
+
+    window.lightboxNavigate = function (direction) {
+        if (currentLightboxList.length === 0 || currentLightboxIndex === -1) return;
+        const newIndex = currentLightboxIndex + direction;
+        if (newIndex < 0 || newIndex >= currentLightboxList.length) return;
+        currentLightboxIndex = newIndex;
+        const item = currentLightboxList[currentLightboxIndex];
+        showLightboxContent(item.src, item.type);
+        updateLightboxNav();
+    };
 
     window.closeLightbox = function () {
         lightbox.style.display = 'none';
         lightboxVideo.pause();
         lightboxImg.src = '';
         lightboxVideo.src = '';
-    }
+        currentLightboxIndex = -1;
+        currentLightboxList = [];
+    };
 
-    lightboxContentWrapper.addEventListener('click', function (event) {
-        event.stopPropagation();
+    lightboxContentWrapper.addEventListener('click', (e) => e.stopPropagation());
+
+    // Keyboard nav
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); lightboxNavigate(-1); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); lightboxNavigate(1); }
+            else if (e.key === 'Escape') { closeLightbox(); }
+        } else if (e.key === 'Escape' && galleryModal && galleryModal.classList.contains('open')) {
+            closeGallery();
+        }
     });
+
+    // Swipe support for lightbox (mobile)
+    let lbTouchX = 0, lbTouchY = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+        lbTouchX = e.touches[0].clientX;
+        lbTouchY = e.touches[0].clientY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - lbTouchX;
+        const dy = e.changedTouches[0].clientY - lbTouchY;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            if (dx > 0) lightboxNavigate(-1);
+            else lightboxNavigate(1);
+        }
+    }, { passive: true });
 
     // --- Full Gallery Modal Logic ---
     const galleryModal = document.getElementById('gallery-modal');
@@ -210,8 +298,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const openGalleryBtn = document.getElementById('open-gallery-btn');
     const closeGalleryBtn = document.getElementById('close-gallery-btn');
     const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    let currentFilteredList = [];
 
-    // Helper: extract category from filename
     function getCategory(src) {
         const filename = src.split('/').pop().toLowerCase();
         if (filename.startsWith('seguridad')) return 'seguridad';
@@ -221,19 +309,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return 'otro';
     }
 
-    // Lazy-load observer for gallery images
+    // Lazy-load with video thumbnail generation
     let galleryObserver = null;
-
     function setupGalleryLazyLoad() {
         if (galleryObserver) galleryObserver.disconnect();
-
         galleryObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const item = entry.target;
                     const img = item.querySelector('img[data-src]');
                     const video = item.querySelector('video[data-src]');
-
                     if (img) {
                         img.src = img.dataset.src;
                         img.removeAttribute('data-src');
@@ -242,125 +327,75 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (video) {
                         const src = video.dataset.src;
                         video.removeAttribute('data-src');
-                        // Create a poster from video thumbnail if needed
-                        video.innerHTML = `<source src="${src}" type="video/mp4">`;
-                        item.classList.add('loaded');
+                        video.src = src;
+                        video.preload = 'metadata';
+                        video.muted = true;
+                        video.playsInline = true;
+                        video.addEventListener('loadeddata', () => {
+                            video.currentTime = 0.5;
+                        }, { once: true });
+                        video.addEventListener('seeked', () => {
+                            item.classList.add('loaded');
+                        }, { once: true });
                     }
-
                     galleryObserver.unobserve(item);
                 }
             });
-        }, {
-            root: galleryGrid,
-            rootMargin: '200px 0px', // preload 200px before visible
-            threshold: 0
-        });
-
-        galleryGrid.querySelectorAll('.gallery-item').forEach(item => {
-            galleryObserver.observe(item);
-        });
+        }, { root: galleryGrid, rootMargin: '200px 0px', threshold: 0 });
+        galleryGrid.querySelectorAll('.gallery-item').forEach(item => galleryObserver.observe(item));
     }
 
-    // Populate gallery grid
     function populateGallery(filter) {
         galleryGrid.innerHTML = '';
         const filtered = filter === 'all' ? images : images.filter(item => getCategory(item.src) === filter);
-
-        filtered.forEach(item => {
+        currentFilteredList = filtered;
+        filtered.forEach((item, index) => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
-            div.dataset.category = getCategory(item.src);
-
             if (item.type === 'image') {
-                // Use data-src for lazy loading
                 div.innerHTML = `<img data-src="${item.src}" alt="Proyecto">`;
-                div.addEventListener('click', () => {
-                    window.openLightboxDirect(item.src, 'image');
-                });
             } else {
                 div.innerHTML = `
-                    <video data-src="${item.src}" preload="none"></video>
+                    <video data-src="${item.src}" preload="none" muted playsinline></video>
                     <div class="gallery-item-video-icon">
                         <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                    </div>
-                `;
-                div.addEventListener('click', () => {
-                    window.openLightboxDirect(item.src, 'video');
-                });
+                    </div>`;
             }
+            div.addEventListener('click', () => {
+                window.openLightboxDirect(item.src, item.type, currentFilteredList, index);
+            });
             galleryGrid.appendChild(div);
         });
-
-        // Start lazy loading
         setupGalleryLazyLoad();
     }
 
-    // Direct lightbox open (takes src directly, not element)
-    window.openLightboxDirect = function (src, type) {
-        if (type === 'image') {
-            lightboxImg.src = src;
-            lightboxImg.classList.remove('hidden');
-            lightboxVideo.classList.add('hidden');
-        } else if (type === 'video') {
-            lightboxVideo.src = src;
-            lightboxVideo.classList.remove('hidden');
-            lightboxImg.classList.add('hidden');
-        }
-        lightbox.style.display = 'flex';
-    };
-
-    // Open gallery
     if (openGalleryBtn) {
         openGalleryBtn.addEventListener('click', () => {
             populateGallery('all');
-            // Reset filter buttons
             filterBtns.forEach(btn => btn.classList.remove('active'));
             document.querySelector('.gallery-filter-btn[data-filter="all"]').classList.add('active');
-            // Show modal
             galleryModal.style.display = 'flex';
-            // Trigger animation
-            requestAnimationFrame(() => {
-                galleryModal.classList.add('open');
-            });
+            requestAnimationFrame(() => galleryModal.classList.add('open'));
             document.body.style.overflow = 'hidden';
         });
     }
 
-    // Close gallery
     function closeGallery() {
         galleryModal.classList.remove('open');
         document.body.style.overflow = '';
-        setTimeout(() => {
-            galleryModal.style.display = 'none';
-        }, 300);
+        setTimeout(() => { galleryModal.style.display = 'none'; }, 300);
     }
+    if (closeGalleryBtn) closeGalleryBtn.addEventListener('click', closeGallery);
 
-    if (closeGalleryBtn) {
-        closeGalleryBtn.addEventListener('click', closeGallery);
-    }
-
-    // Close gallery on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (lightbox.style.display === 'flex') {
-                window.closeLightbox();
-            } else if (galleryModal.classList.contains('open')) {
-                closeGallery();
-            }
-        }
-    });
-
-    // Filter buttons
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            const filter = btn.dataset.filter;
-            populateGallery(filter);
-            // Scroll gallery grid back to top
+            populateGallery(btn.dataset.filter);
             galleryGrid.scrollTop = 0;
         });
     });
+
 
     // --- FAB Logic ---
     const phoneFab = document.getElementById('phone-fab');
