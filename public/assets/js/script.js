@@ -221,6 +221,46 @@ document.addEventListener('DOMContentLoaded', function () {
         return 'otro';
     }
 
+    // Lazy-load observer for gallery images
+    let galleryObserver = null;
+
+    function setupGalleryLazyLoad() {
+        if (galleryObserver) galleryObserver.disconnect();
+
+        galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const item = entry.target;
+                    const img = item.querySelector('img[data-src]');
+                    const video = item.querySelector('video[data-src]');
+
+                    if (img) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        img.onload = () => item.classList.add('loaded');
+                    }
+                    if (video) {
+                        const src = video.dataset.src;
+                        video.removeAttribute('data-src');
+                        // Create a poster from video thumbnail if needed
+                        video.innerHTML = `<source src="${src}" type="video/mp4">`;
+                        item.classList.add('loaded');
+                    }
+
+                    galleryObserver.unobserve(item);
+                }
+            });
+        }, {
+            root: galleryGrid,
+            rootMargin: '200px 0px', // preload 200px before visible
+            threshold: 0
+        });
+
+        galleryGrid.querySelectorAll('.gallery-item').forEach(item => {
+            galleryObserver.observe(item);
+        });
+    }
+
     // Populate gallery grid
     function populateGallery(filter) {
         galleryGrid.innerHTML = '';
@@ -232,13 +272,14 @@ document.addEventListener('DOMContentLoaded', function () {
             div.dataset.category = getCategory(item.src);
 
             if (item.type === 'image') {
-                div.innerHTML = `<img src="${item.src}" alt="Proyecto" loading="lazy">`;
+                // Use data-src for lazy loading
+                div.innerHTML = `<img data-src="${item.src}" alt="Proyecto">`;
                 div.addEventListener('click', () => {
                     window.openLightboxDirect(item.src, 'image');
                 });
             } else {
                 div.innerHTML = `
-                    <video preload="none"><source src="${item.src}" type="video/mp4"></video>
+                    <video data-src="${item.src}" preload="none"></video>
                     <div class="gallery-item-video-icon">
                         <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                     </div>
@@ -249,6 +290,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             galleryGrid.appendChild(div);
         });
+
+        // Start lazy loading
+        setupGalleryLazyLoad();
     }
 
     // Direct lightbox open (takes src directly, not element)
