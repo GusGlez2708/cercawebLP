@@ -181,72 +181,66 @@ img, video {
 /* Gallery Grid */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    padding: 6px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     flex: 1;
     min-height: 0;
     align-content: start;
 }
-@media (max-width: 379px) {
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
-        padding: 8px;
-    }
-}
 @media (min-width: 480px) {
     .gallery-grid {
-        gap: 6px;
-        padding: 8px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 12px;
     }
 }
 @media (min-width: 640px) {
     .gallery-grid {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 5px;
-        padding: 6px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 12px;
     }
 }
 @media (min-width: 768px) {
     .gallery-grid {
-        grid-template-columns: repeat(6, 1fr);
-        gap: 5px;
-        padding: 8px 12px;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        padding: 14px;
     }
 }
 @media (min-width: 1024px) {
     .gallery-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
-        padding: 10px 16px;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+        padding: 16px 20px;
     }
 }
 @media (min-width: 1280px) {
     .gallery-grid {
-        grid-template-columns: repeat(8, 1fr);
-        gap: 6px;
-        padding: 12px 20px;
+        grid-template-columns: repeat(7, 1fr);
     }
 }
 
-/* Gallery Item – guaranteed square */
+/* Gallery Item – forced square with height:0 trick */
 .gallery-item {
     position: relative;
     width: 100%;
-    padding-bottom: 100%; /* forces 1:1 aspect ratio */
-    border-radius: 8px;
+    height: 0 !important;
+    padding-bottom: 100% !important; /* 1:1 ratio */
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     background: #0a1f3a;
 }
+
 /* Loading shimmer placeholder */
 .gallery-item::before {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(
         110deg,
         #0a1f3a 30%,
@@ -256,7 +250,8 @@ img, video {
     background-size: 200% 100%;
     animation: gallery-shimmer 1.5s ease-in-out infinite;
     z-index: 3;
-    transition: opacity 0.3s ease;
+    border-radius: 12px;
+    transition: opacity 0.4s ease;
 }
 .gallery-item.loaded::before {
     opacity: 0;
@@ -266,44 +261,49 @@ img, video {
     0%   { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
+
+/* Image / Video inside item */
 .gallery-item img,
 .gallery-item video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
     display: block;
     transition: transform 0.3s ease;
+    border-radius: 12px;
 }
 .gallery-item:hover img,
 .gallery-item:hover video {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
+
+/* Hover overlay */
 .gallery-item::after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 40%);
     opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;
-    border-radius: 8px;
+    border-radius: 12px;
     z-index: 1;
 }
 .gallery-item:hover::after {
     opacity: 1;
 }
 .gallery-item:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
     transition: transform 0.15s ease;
 }
 
 /* Video play icon overlay */
 .gallery-item-video-icon {
     position: absolute;
-    inset: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -311,10 +311,10 @@ img, video {
     z-index: 2;
 }
 .gallery-item-video-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
     color: white;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
     transition: transform 0.3s ease;
 }
 .gallery-item:hover .gallery-item-video-icon svg {
@@ -322,14 +322,8 @@ img, video {
 }
 @media (min-width: 768px) {
     .gallery-item-video-icon svg {
-        width: 36px;
-        height: 36px;
-    }
-    .gallery-item {
-        border-radius: 10px;
-    }
-    .gallery-item::after {
-        border-radius: 10px;
+        width: 42px;
+        height: 42px;
     }
 }
 
