@@ -71,16 +71,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     allContent.forEach(item => {
         const div = document.createElement('div');
-        // Responsive: smaller on mobile, bigger on desktop
-        div.className = 'flex-shrink-0 w-40 md:w-64 mx-2 md:mx-4 select-none';
+        // Responsive: granular sizing for mobile-first (63% mobile users)
+        div.className = 'flex-shrink-0 w-32 sm:w-40 md:w-56 lg:w-64 mx-1.5 sm:mx-2 md:mx-3 lg:mx-4 select-none';
         if (item.type === 'image') {
-            div.innerHTML = `<img src="${item.src}" class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-brand-orange cursor-pointer transform hover:scale-105 transition-transform duration-300 pointer-events-none">`;
+            div.innerHTML = `<img src="${item.src}" class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-3 md:border-4 border-brand-orange cursor-pointer transform hover:scale-105 transition-transform duration-300 pointer-events-none" loading="lazy">`;
             div.onclick = () => openLightbox(div, 'image');
         } else {
             div.className += ' relative cursor-pointer';
             div.innerHTML = `
-                <video class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover border-4 border-brand-orange pointer-events-none"><source src="${item.src}" type="video/mp4"></video>
-                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full pointer-events-none"><svg class="w-12 h-12 md:w-16 md:h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></div>
+                <video class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-3 md:border-4 border-brand-orange pointer-events-none" preload="none"><source src="${item.src}" type="video/mp4"></video>
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full pointer-events-none"><svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></div>
             `;
             div.onclick = () => openLightbox(div, 'video');
         }

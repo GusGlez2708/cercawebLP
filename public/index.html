@@ -3,44 +3,49 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CercaGlez</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="CercaGlez - Instalación, reparación y mantenimiento de malla ciclónica en Mérida, Yucatán. 20+ años de experiencia.">
+    <title>CercaGlez | Malla Ciclónica en Mérida</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="assets/iclogo/icon.png">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }</style>
 </head>
 
 <body class="bg-white text-gray-800">
 
     <!-- Header -->
     <header class="bg-brand-blue shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="container mx-auto px-4 sm:px-6 py-2.5 md:py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-12 md:h-16 mr-4">
+                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-10 md:h-14 lg:h-16 mr-3">
             </div>
-            <nav class="hidden md:flex items-center space-x-8">
+            <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
                 <a href="#inicio"
-                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium">INICIO</a>
+                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">INICIO</a>
                 <a href="#nosotros"
-                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium">NOSOTROS</a>
+                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">NOSOTROS</a>
                 <a href="#servicios"
-                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium">SERVICIOS</a>
+                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">SERVICIOS</a>
                 <a href="#proyectos"
-                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium">PROYECTOS</a>
+                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">PROYECTOS</a>
                 <a href="#contacto"
-                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium">CONTACTO</a>
+                    class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">CONTACTO</a>
             </nav>
             <div class="hidden md:block">
                 <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
                     target="_blank"
-                    class="bg-brand-orange text-white px-5 py-3 rounded-lg font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-2">
+                    class="bg-brand-orange text-white px-4 lg:px-5 py-2.5 lg:py-3 rounded-lg font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-2 text-sm lg:text-base">
                     <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-5 h-5">
                     <span>Cotiza Ya</span>
                 </a>
             </div>
             <!-- Hamburger Button (mobile only) -->
-            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none" aria-label="Menú">
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-11 h-11 space-y-1.5 focus:outline-none" aria-label="Menú">
                 <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
                 <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
                 <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
@@ -48,50 +53,51 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu md:hidden">
-            <nav class="flex flex-col items-center space-y-4 py-6 px-6">
-                <a href="#inicio" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">INICIO</a>
-                <a href="#nosotros" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">NOSOTROS</a>
-                <a href="#servicios" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">SERVICIOS</a>
-                <a href="#proyectos" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">PROYECTOS</a>
-                <a href="#contacto" class="mobile-nav-link text-white text-lg font-medium hover:text-brand-orange transition duration-300">CONTACTO</a>
-                <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
-                    target="_blank"
-                    class="bg-brand-orange text-white px-6 py-3 rounded-lg font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-2 mt-2">
-                    <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-5 h-5">
-                    <span>Cotiza Ya</span>
-                </a>
+            <nav class="flex flex-col items-center space-y-2 py-5 px-4">
+                <a href="#inicio" class="mobile-nav-link text-white text-base font-semibold hover:text-brand-orange transition duration-300 w-full text-center py-2.5 rounded-lg hover:bg-white/5">INICIO</a>
+                <a href="#nosotros" class="mobile-nav-link text-white text-base font-semibold hover:text-brand-orange transition duration-300 w-full text-center py-2.5 rounded-lg hover:bg-white/5">NOSOTROS</a>
+                <a href="#servicios" class="mobile-nav-link text-white text-base font-semibold hover:text-brand-orange transition duration-300 w-full text-center py-2.5 rounded-lg hover:bg-white/5">SERVICIOS</a>
+                <a href="#proyectos" class="mobile-nav-link text-white text-base font-semibold hover:text-brand-orange transition duration-300 w-full text-center py-2.5 rounded-lg hover:bg-white/5">PROYECTOS</a>
+                <a href="#contacto" class="mobile-nav-link text-white text-base font-semibold hover:text-brand-orange transition duration-300 w-full text-center py-2.5 rounded-lg hover:bg-white/5">CONTACTO</a>
+                <div class="pt-2 w-full flex justify-center">
+                    <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
+                        target="_blank"
+                        class="bg-brand-orange text-white px-6 py-3 rounded-lg font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-2">
+                        <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-5 h-5">
+                        <span>Cotiza Ya</span>
+                    </a>
+                </div>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="inicio" class="relative min-h-screen bg-cover bg-center flex items-center justify-center"
+    <section id="inicio" class="relative bg-cover bg-center flex items-center justify-center"
         style="background-image: url('assets/images/privacidad1.jpg');">
         <div class="absolute inset-0 bg-brand-blue bg-opacity-75"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center text-white">
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-fade-in">
+        <div class="container mx-auto px-4 sm:px-6 relative z-10 text-center text-white py-12">
+            <h1 class="font-extrabold leading-tight mb-6 animate-fade-in">
                 Instalación, reparación y mantenimiento de malla ciclónica en Mérida, Yucatán
             </h1>
             <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
                 target="_blank"
-                class="bg-brand-orange text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-3 animate-slide-in-up">
-                <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-7 h-7">
+                class="bg-brand-orange text-white rounded-xl font-bold hover:bg-orange-600 transition duration-300 inline-flex items-center space-x-3 animate-slide-in-up shadow-lg shadow-orange-500/25 active:scale-95">
+                <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-6 h-6 md:w-7 md:h-7">
                 <span>Cotiza Ya</span>
             </a>
         </div>
     </section>
 
     <!-- About Us Section -->
-    <section id="nosotros" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
+    <section id="nosotros" class="bg-gray-50">
+        <div class="container mx-auto">
             <div class="text-center max-w-4xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-bold text-brand-blue">Proporcionamos protección y calidad</h2>
-                <br></br>
-                <p class="text-lg text-gray-600 mb-4 text-justify font-bold">
+                <h2 class="font-extrabold text-brand-blue mb-5">Proporcionamos protección y calidad</h2>
+                <p class="text-gray-600 mb-4 text-justify font-semibold leading-relaxed">
                     En CercaGlez somos especialistas en instalación, reparación y mantenimiento de malla ciclónica,
                     rejacero, alambre de púas, concertina y más en Mérida, Yucatán.
                 </p>
-                <p class="text-lg text-gray-600 text-justify font-bold">
+                <p class="text-gray-600 text-justify font-semibold leading-relaxed">
                     Nuestra amplia experiencia de 20 años nos permite adaptar nuestras soluciones según el volumen o
                     tipo de cercado requerido, garantizando siempre la seguridad de nuestros clientes, que buscan
                     proteger sus propiedades.
@@ -99,7 +105,7 @@
             </div>
 
             <!-- Stats Counter -->
-            <div class="stats-counter-grid mt-14">
+            <div class="stats-counter-grid mt-10 md:mt-14">
                 <div class="stat-item" data-target="20" data-suffix="+">
                     <span class="stat-number"><span class="stat-count">0</span><span class="stat-suffix">+</span></span>
                     <span class="stat-label">Años de experiencia</span>
@@ -117,49 +123,49 @@
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-20 relative bg-cover bg-center bg-fixed"
+    <section class="relative bg-cover bg-center md:bg-fixed"
         style="background-image: url('assets/images/rejacero1.jpg');">
-        <div class="absolute inset-0 bg-brand-blue bg-opacity-75"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="absolute inset-0 bg-brand-blue bg-opacity-80"></div>
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
                 <div class="text-white">
-                    <h3 class="text-3xl font-bold mb-8">¿Por qué elegirnos?</h3>
-                    <ul class="space-y-6">
+                    <h3 class="font-bold mb-5 md:mb-8">¿Por qué elegirnos?</h3>
+                    <ul class="space-y-4 md:space-y-6">
                         <li class="flex items-start">
-                            <div class="bg-brand-orange rounded-full p-2 mr-4 flex-shrink-0"><img
-                                    src="assets/buttons/verificado.png" alt="Verificado" class="w-6 h-6"></div>
-                            <div><strong class="block text-lg">Instaladores expertos</strong>
-                                <p class="text-justify">nuestro equipo está compuesto por profesionales altamente
+                            <div class="bg-brand-orange rounded-full p-2 mr-3 md:mr-4 flex-shrink-0"><img
+                                    src="assets/buttons/verificado.png" alt="Verificado" class="w-5 h-5 md:w-6 md:h-6"></div>
+                            <div><strong class="block text-base md:text-lg">Instaladores expertos</strong>
+                                <p class="text-sm md:text-base leading-relaxed">nuestro equipo está compuesto por profesionales altamente
                                     capacitados.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="bg-brand-orange rounded-full p-2 mr-4 flex-shrink-0"><img
-                                    src="assets/buttons/seguridad.png" alt="Seguridad" class="w-6 h-6"></div>
-                            <div><strong class="block text-lg">Seguridad garantizada</strong>
-                                <p class="text-justify">priorizamos la protección y tranquilidad de nuestros clientes.
+                            <div class="bg-brand-orange rounded-full p-2 mr-3 md:mr-4 flex-shrink-0"><img
+                                    src="assets/buttons/seguridad.png" alt="Seguridad" class="w-5 h-5 md:w-6 md:h-6"></div>
+                            <div><strong class="block text-base md:text-lg">Seguridad garantizada</strong>
+                                <p class="text-sm md:text-base leading-relaxed">priorizamos la protección y tranquilidad de nuestros clientes.
                                 </p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="bg-brand-orange rounded-full p-2 mr-4 flex-shrink-0"><img
-                                    src="assets/buttons/efectivo.png" alt="Anticipo" class="w-6 h-6"></div>
-                            <div><strong class="block text-lg">Anticipo del 70%</strong>
-                                <p class="text-justify">facilitamos el proceso con un esquema de pago flexible.</p>
+                            <div class="bg-brand-orange rounded-full p-2 mr-3 md:mr-4 flex-shrink-0"><img
+                                    src="assets/buttons/efectivo.png" alt="Anticipo" class="w-5 h-5 md:w-6 md:h-6"></div>
+                            <div><strong class="block text-base md:text-lg">Anticipo del 70%</strong>
+                                <p class="text-sm md:text-base leading-relaxed">facilitamos el proceso con un esquema de pago flexible.</p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="bg-brand-orange rounded-full p-2 mr-4 flex-shrink-0"><img
-                                    src="assets/buttons/cotizacion.png" alt="Cotización" class="w-6 h-6"></div>
-                            <div><strong class="block text-lg">Cotizaciones sin compromiso</strong>
-                                <p class="text-justify">conoce nuestros precios y servicios sin ningún costo inicial.
+                            <div class="bg-brand-orange rounded-full p-2 mr-3 md:mr-4 flex-shrink-0"><img
+                                    src="assets/buttons/cotizacion.png" alt="Cotización" class="w-5 h-5 md:w-6 md:h-6"></div>
+                            <div><strong class="block text-base md:text-lg">Cotizaciones sin compromiso</strong>
+                                <p class="text-sm md:text-base leading-relaxed">conoce nuestros precios y servicios sin ningún costo inicial.
                                 </p>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="text-white text-lg bg-gray-50 bg-opacity-20 p-8 rounded-lg shadow-md mt-8 md:mt-0">
-                    <p class="text-justify">Nuestros productos están dirigidos a cualquier persona o empresa que
+                <div class="text-white bg-white/10 backdrop-blur-sm p-5 md:p-8 rounded-xl shadow-md mt-4 md:mt-0">
+                    <p class="text-sm md:text-base leading-relaxed">Nuestros productos están dirigidos a cualquier persona o empresa que
                         necesite soluciones de cercado confiables y duraderas. Ya sea para proteger tu hogar, negocio o
                         proyecto de construcción, tenemos la opción perfecta para ti.</p>
                 </div>
@@ -168,67 +174,67 @@
     </section>
 
     <!-- Services Section -->
-    <section id="servicios" class="py-20 bg-brand-blue text-white">
-        <div class="container mx-auto px-6">
-            <h3 class="text-4xl font-bold text-center mb-12">Nuestros Productos y Servicios</h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+    <section id="servicios" class="bg-brand-blue text-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h3 class="font-bold text-center">Nuestros Productos y Servicios</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 md:mb-12">
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Malla Ciclónica</h4>
-                    <p class="text-justify">Protección duradera y versátil para cualquier propiedad, ideal para
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Malla Ciclónica</h4>
+                    <p class="leading-relaxed">Protección duradera y versátil para cualquier propiedad, ideal para
                         delimitar terrenos y garantizar seguridad con una instalación rápida y eficaz. Ofrece una
                         solución económica y resistente, perfecta para áreas residenciales, comerciales e industriales.
                     </p>
                 </div>
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Rejacero</h4>
-                    <p class="text-justify">Solución robusta y resistente, perfecta para cercar áreas industriales o
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Rejacero</h4>
+                    <p class="leading-relaxed">Solución robusta y resistente, perfecta para cercar áreas industriales o
                         comerciales, ofreciendo seguridad adicional y durabilidad a largo plazo.</p>
                 </div>
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Cercas Eléctricas</h4>
-                    <p class="text-justify">Máxima protección para tu propiedad con cercas electrificadas, disuasivas y
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Cercas Eléctricas</h4>
+                    <p class="leading-relaxed">Máxima protección para tu propiedad con cercas electrificadas, disuasivas y
                         seguras, ideales para prevenir accesos no autorizados.</p>
                 </div>
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Alambre de Púas</h4>
-                    <p class="text-justify">Método económico y eficaz para reforzar la seguridad de cualquier perímetro,
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Alambre de Púas</h4>
+                    <p class="leading-relaxed">Método económico y eficaz para reforzar la seguridad de cualquier perímetro,
                         utilizado ampliamente en áreas rurales y urbanas.</p>
                 </div>
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Concertina</h4>
-                    <p class="text-justify">Eficiente barrera de seguridad con cuchillas afiladas, diseñada para
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Concertina</h4>
+                    <p class="leading-relaxed">Eficiente barrera de seguridad con cuchillas afiladas, diseñada para
                         proteger áreas sensibles y de alto riesgo, disuadiendo intrusiones.</p>
                 </div>
                 <div
-                    class="bg-gray-50 text-brand-blue p-8 rounded-lg shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition duration-300">
-                    <h4 class="text-2xl font-bold mb-3 text-brand-orange">Barda Picos</h4>
-                    <p class="text-justify">Elemento de alta disuasión para muros y cercas. Su diseño afilado previene
+                    class="bg-gray-50 text-brand-blue rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 md:hover:-translate-y-2 transition duration-300">
+                    <h4 class="font-bold text-brand-orange">Barda Picos</h4>
+                    <p class="leading-relaxed">Elemento de alta disuasión para muros y cercas. Su diseño afilado previene
                         eficazmente el escalamiento, añadiendo una capa crítica de seguridad perimetral para proteger tu
                         propiedad contra intrusos.</p>
                 </div>
             </div>
             <div class="text-center">
-                <h4 class="text-2xl font-bold mb-6">Además, tenemos accesorios para malla ciclónica:</h4>
-                <div class="flex flex-wrap justify-center gap-4 text-lg">
-                    <span class="bg-brand-orange text-white py-2 px-4 rounded-full">Abrazaderas de tensión</span>
-                    <span class="bg-brand-orange text-white py-2 px-4 rounded-full">Abrazaderas de arranque</span>
-                    <span class="bg-brand-orange text-white py-2 px-4 rounded-full">Bayonetas</span>
-                    <span class="bg-brand-orange text-white py-2 px-4 rounded-full">Bisagra industrial</span>
-                    <span class="bg-brand-orange text-white py-2 px-4 rounded-full">Tornillos galvanizados</span>
+                <h4 class="font-bold mb-4 md:mb-6">Además, tenemos accesorios para malla ciclónica:</h4>
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+                    <span class="bg-brand-orange text-white rounded-full font-medium">Abrazaderas de tensión</span>
+                    <span class="bg-brand-orange text-white rounded-full font-medium">Abrazaderas de arranque</span>
+                    <span class="bg-brand-orange text-white rounded-full font-medium">Bayonetas</span>
+                    <span class="bg-brand-orange text-white rounded-full font-medium">Bisagra industrial</span>
+                    <span class="bg-brand-orange text-white rounded-full font-medium">Tornillos galvanizados</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="proyectos" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h3 class="text-4xl font-bold text-center mb-12 text-brand-blue">Proyectos Destacados</h3>
+    <section id="proyectos" class="bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h3 class="font-bold text-center text-brand-blue">Proyectos Destacados</h3>
         </div>
         <div id="scrolling-container" class="scrolling-container relative group">
             <div id="scrolling-content" class="flex">
@@ -238,10 +244,10 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contacto" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h3 class="text-4xl font-bold text-center mb-12 text-brand-blue">Contacto y Cotizaciones</h3>
-            <div class="grid lg:grid-cols-2 gap-16 items-start">
+    <section id="contacto" class="bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h3 class="font-bold text-center text-brand-blue">Contacto y Cotizaciones</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
                 <div class="space-y-8">
                     <div>
                         <h4 class="text-2xl font-bold text-brand-orange mb-4">Información de Contacto</h4>
@@ -306,14 +312,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-8 rounded-lg overflow-hidden shadow-lg h-80">
+                    <div class="mt-6 md:mt-8 rounded-xl overflow-hidden shadow-lg h-80">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d232.89765545318588!2d-89.61584670180929!3d20.937953313045604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5671006ee8adbb%3A0xad89cff2556f1ddf!2sCercaGlez!5e0!3m2!1ses-419!2smx!4v1761370644412!5m2!1ses-419!2smx"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-lg shadow-2xl">
+                <div class="bg-white rounded-xl shadow-2xl">
                     <h4 class="text-2xl font-bold mb-6 text-brand-blue">Solicita una Cotización</h4>
                     <form id="contact-form" class="space-y-6" novalidate>
                         <div>
@@ -387,18 +393,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-brand-blue border-t-4 border-brand-orange py-8">
-        <div class="container mx-auto px-6 text-center text-gray-400">
+    <footer class="bg-brand-blue border-t-4 border-brand-orange">
+        <div class="container mx-auto text-center text-gray-400">
             <p>&copy; 2025 CERCA GLEZ. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <!-- Floating Action Buttons -->
-    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end space-y-4">
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end space-y-3">
         <div class="relative group">
             <button id="phone-fab"
-                class="bg-brand-orange text-black w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                class="bg-brand-orange text-black rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 active:scale-95 transition-transform">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
                     </path>
@@ -406,30 +412,29 @@
             </button>
             <div id="phone-options" class="phone-options">
                 <a href="tel:9999092270"
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md">999-909-2270</a>
+                    class="text-gray-700 hover:bg-gray-100 rounded-lg font-medium">📞 999-909-2270</a>
                 <a href="tel:9992065671"
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md">999-206-5671</a>
+                    class="text-gray-700 hover:bg-gray-100 rounded-lg font-medium">📞 999-206-5671</a>
             </div>
         </div>
         <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
             target="_blank"
-            class="bg-green-500 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-            <img src="assets/buttons/whatsapp.png" alt="WhatsApp" class="w-9 h-9">
+            class="bg-green-500 text-white rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 active:scale-95 transition-transform">
+            <img src="assets/buttons/whatsapp.png" alt="WhatsApp">
         </a>
         <a href="#contacto"
-            class="bg-brand-orange text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform">
-            <div class="bg-brand-orange rounded-full p-1"><img src="assets/buttons/cotizacion.png" alt="Cotización"
-                    class="w-8 h-8"></div>
+            class="bg-brand-orange text-white rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 active:scale-95 transition-transform">
+            <div class="bg-brand-orange rounded-full p-1"><img src="assets/buttons/cotizacion.png" alt="Cotización"></div>
         </a>
     </div>
 
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <div id="lightbox-content-wrapper" class="relative">
+        <div id="lightbox-content-wrapper" class="relative max-w-full">
             <button onclick="closeLightbox()"
-                class="absolute -top-10 right-0 text-white text-5xl font-bold">&times;</button>
-            <img id="lightbox-img" class="lightbox-content hidden">
-            <video id="lightbox-video" class="lightbox-content hidden" controls autoplay></video>
+                class="absolute -top-12 right-0 text-white text-4xl md:text-5xl font-bold w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">&times;</button>
+            <img id="lightbox-img" class="lightbox-content hidden rounded-lg">
+            <video id="lightbox-video" class="lightbox-content hidden rounded-lg" controls autoplay></video>
         </div>
     </div>
 

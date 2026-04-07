@@ -1,31 +1,73 @@
+/* ═══════════════════════════════════════════════════
+   CercaGlez – Landing Page Styles
+   Mobile-First Responsive Design
+   (63% mobile · 4% tablet · 33% desktop)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Base / Reset ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-padding-top: 60px; /* offset for sticky header on mobile */
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Ensure images are responsive by default */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ── Animations ── */
 @keyframes slide-in-up {
     from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(0);    opacity: 1; }
 }
 .animate-slide-in-up { animation: slide-in-up 0.8s ease-out forwards; }
 
 @keyframes fade-in {
     from { opacity: 0; }
-    to { opacity: 1; }
+    to   { opacity: 1; }
 }
 .animate-fade-in { animation: fade-in 1s ease-in forwards; }
 
+@keyframes count-up-pulse {
+    0%   { transform: scale(1);    }
+    50%  { transform: scale(1.12); }
+    100% { transform: scale(1);    }
+}
+.stat-number.pulse { animation: count-up-pulse 0.4s ease-out; }
+
+/* ── Lightbox (global) ── */
 .lightbox {
     display: none;
     position: fixed;
     z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.92);
     justify-content: center;
     align-items: center;
+    padding: 16px;
 }
 .lightbox-content {
-    max-width: 90vw;
-    max-height: 90vh;
+    max-width: 95vw;
+    max-height: 80vh;
+    border-radius: 8px;
 }
+
+/* ── Phone FAB Options ── */
 .phone-options {
     display: none;
     position: absolute;
@@ -33,27 +75,43 @@
     right: 0;
     margin-bottom: 8px;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.18);
     padding: 8px;
-    width: 200px;
+    width: 220px;
 }
+.phone-options a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* ── Scrolling Gallery ── */
 .scrolling-container {
     overflow-x: auto;
     cursor: grab;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
 }
-.scrolling-container:active {
-    cursor: grabbing;
-}
-.scrolling-container::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-}
+.scrolling-container:active { cursor: grabbing; }
+.scrolling-container::-webkit-scrollbar { display: none; }
+
+/* ── Custom Select ── */
 #custom-select-options .custom-option.selected {
     background-color: #eb7627;
     color: white;
 }
+#custom-select-options .custom-option {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Desktop Navigation Link Underline ── */
 .nav-link {
     position: relative;
     padding-bottom: 8px;
@@ -69,64 +127,14 @@
     background-color: #eb7627;
     transition: width 0.3s ease-in-out;
 }
-.nav-link.nav-active {
-    color: #eb7627 !important;
-}
-.nav-link.nav-active::after {
-    width: 70%;
-}
+.nav-link.nav-active       { color: #eb7627 !important; }
+.nav-link.nav-active::after { width: 70%; }
 
-/* ── Animated Stats Counter ── */
-.stats-counter-grid {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-}
+/* ══════════════════════════════════════════════════
+   MOBILE-FIRST STYLES (base = phones ≤ 767px)
+   ══════════════════════════════════════════════════ */
 
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 160px;
-}
-
-.stat-number {
-    font-size: 3.5rem;
-    font-weight: 900;
-    color: #eb7627;
-    line-height: 1;
-    display: flex;
-    align-items: baseline;
-    gap: 0.05em;
-    transition: transform 0.3s ease;
-}
-
-.stat-item:hover .stat-number {
-    transform: scale(1.08);
-}
-
-.stat-label {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1e3a5f;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-@keyframes count-up-pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.12); }
-    100% { transform: scale(1); }
-}
-
-.stat-number.pulse {
-    animation: count-up-pulse 0.4s ease-out;
-}
-
-/* ── Mobile Menu ── */
+/* ── Header / Mobile Menu ── */
 .mobile-menu {
     max-height: 0;
     overflow: hidden;
@@ -134,9 +142,14 @@
     background-color: #031630;
     border-top: 1px solid rgba(255,255,255,0.1);
 }
-
 .mobile-menu.open {
-    max-height: 400px;
+    max-height: 420px;
+}
+.mobile-menu nav a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Hamburger animation */
@@ -150,59 +163,539 @@
     transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ── Mobile Responsive ── */
-@media (max-width: 767px) {
+/* ── Stats Counter ── */
+.stats-counter-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 100px;
+    flex: 1 1 100px;
+}
+.stat-number {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: #eb7627;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.05em;
+    transition: transform 0.3s ease;
+}
+.stat-item:hover .stat-number { transform: scale(1.08); }
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Hero – Mobile ── */
+#inicio {
+    min-height: 85vh; /* shorter so CTA is visible without scrolling */
+}
+#inicio h1 {
+    font-size: 1.5rem;
+    line-height: 1.35;
+    padding: 0 0.25rem;
+}
+#inicio .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+/* Hero CTA button */
+#inicio a[href*="wa.me"] {
+    padding: 14px 24px;
+    font-size: 1rem;
+}
+
+/* ── Sections – Mobile ── */
+section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+section .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* ── About / Nosotros – Mobile ── */
+#nosotros h2 {
+    font-size: 1.65rem;
+    line-height: 1.25;
+}
+#nosotros p {
+    font-size: 0.95rem;
+}
+
+/* ── Why Choose Us – Mobile ── */
+#nosotros + section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+#nosotros + section li {
+    font-size: 0.95rem;
+}
+#nosotros + section .bg-gray-50 {
+    padding: 1.25rem;
+    font-size: 0.95rem;
+}
+
+/* ── Services – Mobile ── */
+#servicios h3 {
+    font-size: 1.65rem;
+    margin-bottom: 1.5rem;
+}
+#servicios h4 {
+    font-size: 1.2rem;
+}
+#servicios .grid > div {
+    padding: 1.25rem;
+}
+#servicios .grid > div p {
+    font-size: 0.9rem;
+}
+/* Accessories badges – smaller on mobile */
+#servicios .flex-wrap span {
+    font-size: 0.82rem;
+    padding: 6px 14px;
+}
+#servicios .text-center h4 {
+    font-size: 1.1rem;
+}
+
+/* ── Projects – Mobile ── */
+#proyectos h3 {
+    font-size: 1.65rem;
+    margin-bottom: 1rem;
+}
+
+/* ── Contact – Mobile ── */
+#contacto h3 {
+    font-size: 1.65rem;
+    margin-bottom: 1.5rem;
+}
+#contacto h4 {
+    font-size: 1.15rem;
+}
+#contacto .space-y-4 p,
+#contacto .space-y-4 a,
+#contacto .space-y-4 div {
+    font-size: 0.9rem;
+}
+/* Make phone numbers tappable */
+#contacto a[href^="tel:"],
+#contacto a[href^="mailto:"],
+#contacto a[href*="wa.me"] {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+/* Horario */
+#contacto ul {
+    font-size: 0.95rem;
+}
+/* Map */
+.h-80 {
+    height: 220px;
+}
+/* Form */
+#contact-form input,
+#contact-form textarea,
+#custom-select-trigger {
+    font-size: 16px !important; /* prevents iOS zoom on focus */
+    min-height: 48px;
+}
+#contact-form label {
+    font-size: 0.85rem;
+}
+/* Submit button */
+#submit-button {
+    min-height: 52px;
+    font-size: 1.05rem;
+}
+/* Form container */
+#contacto .bg-white {
+    padding: 1.25rem;
+}
+#contacto .bg-white h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* ── Floating Action Buttons – Mobile ── */
+.fixed.bottom-5.right-5 {
+    bottom: 12px;
+    right: 12px;
+    gap: 10px;
+}
+.fixed.bottom-5.right-5 a,
+.fixed.bottom-5.right-5 button {
+    width: 50px;
+    height: 50px;
+}
+.fixed.bottom-5.right-5 a img {
+    width: 28px;
+    height: 28px;
+}
+.fixed.bottom-5.right-5 a svg,
+.fixed.bottom-5.right-5 button svg {
+    width: 24px;
+    height: 24px;
+}
+/* FAB inner icon sizing */
+.fixed.bottom-5.right-5 .bg-brand-orange.rounded-full img {
+    width: 26px;
+    height: 26px;
+}
+
+/* ── Footer – Mobile ── */
+footer {
+    padding: 1.5rem 1rem;
+}
+footer p {
+    font-size: 0.85rem;
+}
+
+/* ══════════════════════════════════════════════════
+   TABLET (≥ 768px)
+   ══════════════════════════════════════════════════ */
+@media (min-width: 768px) {
+    html {
+        scroll-padding-top: 72px;
+    }
+
     /* Hero */
+    #inicio {
+        min-height: 90vh;
+    }
     #inicio h1 {
-        font-size: 1.75rem;
-        line-height: 1.3;
+        font-size: 2.5rem;
+        line-height: 1.25;
+    }
+    #inicio a[href*="wa.me"] {
+        padding: 16px 32px;
+        font-size: 1.1rem;
+    }
+
+    /* Sections */
+    section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    section .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    /* About */
+    #nosotros h2 {
+        font-size: 2.25rem;
+    }
+    #nosotros p {
+        font-size: 1.05rem;
     }
 
     /* Stats */
-    .stat-number {
-        font-size: 2.5rem;
+    .stats-counter-grid {
+        gap: 2rem;
     }
     .stat-item {
-        min-width: 120px;
+        min-width: 140px;
     }
-    .stats-counter-grid {
-        gap: 1.5rem;
+    .stat-number {
+        font-size: 2.75rem;
     }
-
-    /* FABs */
-    .fixed.bottom-5.right-5 {
-        bottom: 12px;
-        right: 12px;
-    }
-    .fixed.bottom-5.right-5 a,
-    .fixed.bottom-5.right-5 button {
-        width: 48px;
-        height: 48px;
-    }
-    .fixed.bottom-5.right-5 a img {
-        width: 28px;
-        height: 28px;
-    }
-    .fixed.bottom-5.right-5 a svg,
-    .fixed.bottom-5.right-5 button svg {
-        width: 24px;
-        height: 24px;
+    .stat-label {
+        font-size: 0.9rem;
     }
 
-    /* Sections padding */
-    section {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
+    /* Why Choose Us */
+    #nosotros + section h3 {
+        font-size: 1.85rem;
     }
 
-    /* Contact section map */
+    /* Services */
+    #servicios h3 {
+        font-size: 2.25rem;
+    }
+    #servicios h4 {
+        font-size: 1.45rem;
+    }
+    #servicios .grid > div {
+        padding: 1.75rem;
+    }
+    #servicios .flex-wrap span {
+        font-size: 0.95rem;
+        padding: 8px 18px;
+    }
+
+    /* Projects */
+    #proyectos h3 {
+        font-size: 2.25rem;
+    }
+
+    /* Contact */
+    #contacto h3 {
+        font-size: 2.25rem;
+    }
+    #contacto h4 {
+        font-size: 1.35rem;
+    }
     .h-80 {
-        height: 250px;
+        height: 280px;
+    }
+    #contacto .bg-white {
+        padding: 1.75rem;
     }
 
     /* Lightbox */
     .lightbox-content {
-        max-width: 95vw;
-        max-height: 80vh;
+        max-width: 85vw;
+        max-height: 85vh;
+    }
+
+    /* FABs */
+    .fixed.bottom-5.right-5 {
+        bottom: 16px;
+        right: 16px;
+    }
+    .fixed.bottom-5.right-5 a,
+    .fixed.bottom-5.right-5 button {
+        width: 56px;
+        height: 56px;
+    }
+    .fixed.bottom-5.right-5 a img {
+        width: 32px;
+        height: 32px;
+    }
+    .fixed.bottom-5.right-5 a svg,
+    .fixed.bottom-5.right-5 button svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    footer {
+        padding: 2rem 1.5rem;
+    }
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* ══════════════════════════════════════════════════
+   DESKTOP (≥ 1024px)
+   ══════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    html {
+        scroll-padding-top: 80px;
+    }
+
+    /* Hero */
+    #inicio {
+        min-height: 100vh;
+    }
+    #inicio h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+    }
+    #inicio a[href*="wa.me"] {
+        padding: 18px 36px;
+        font-size: 1.15rem;
+    }
+
+    /* Sections */
+    section {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+    section .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    /* About */
+    #nosotros h2 {
+        font-size: 2.75rem;
+    }
+    #nosotros p {
+        font-size: 1.1rem;
+    }
+
+    /* Stats */
+    .stats-counter-grid {
+        gap: 3rem;
+    }
+    .stat-item {
+        min-width: 160px;
+    }
+    .stat-number {
+        font-size: 3.5rem;
+    }
+    .stat-label {
+        font-size: 1rem;
+    }
+
+    /* Why Choose Us */
+    #nosotros + section h3 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    #nosotros + section li {
+        font-size: 1rem;
+    }
+    #nosotros + section .bg-gray-50 {
+        padding: 2rem;
+        font-size: 1.1rem;
+    }
+
+    /* Services */
+    #servicios h3 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+    #servicios h4 {
+        font-size: 1.55rem;
+    }
+    #servicios .grid > div {
+        padding: 2rem;
+    }
+    #servicios .grid > div p {
+        font-size: 1rem;
+    }
+    #servicios .flex-wrap span {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
+    #servicios .text-center h4 {
+        font-size: 1.35rem;
+    }
+
+    /* Projects */
+    #proyectos h3 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    /* Contact */
+    #contacto h3 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+    #contacto h4 {
+        font-size: 1.5rem;
+    }
+    #contacto .space-y-4 p,
+    #contacto .space-y-4 a,
+    #contacto .space-y-4 div {
+        font-size: 1.05rem;
+    }
+    .h-80 {
+        height: 320px;
+    }
+    #contacto .bg-white {
+        padding: 2rem;
+    }
+    #contacto .bg-white h4 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Lightbox */
+    .lightbox-content {
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+
+    /* FABs */
+    .fixed.bottom-5.right-5 {
+        bottom: 20px;
+        right: 20px;
+    }
+    .fixed.bottom-5.right-5 a,
+    .fixed.bottom-5.right-5 button {
+        width: 64px;
+        height: 64px;
+    }
+    .fixed.bottom-5.right-5 a img {
+        width: 36px;
+        height: 36px;
+    }
+    .fixed.bottom-5.right-5 a svg,
+    .fixed.bottom-5.right-5 button svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    footer {
+        padding: 2rem;
+    }
+    footer p {
+        font-size: 1rem;
+    }
+}
+
+/* ══════════════════════════════════════════════════
+   EXTRA SMALL SCREENS (≤ 374px – iPhone SE, etc.)
+   ══════════════════════════════════════════════════ */
+@media (max-width: 374px) {
+    #inicio h1 {
+        font-size: 1.25rem;
+    }
+    #inicio a[href*="wa.me"] {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    #nosotros h2 {
+        font-size: 1.4rem;
+    }
+    #servicios h3,
+    #contacto h3,
+    #proyectos h3 {
+        font-size: 1.4rem;
+    }
+    .stat-number {
+        font-size: 1.85rem;
+    }
+    .stat-item {
+        min-width: 85px;
+    }
+    .stats-counter-grid {
+        gap: 0.75rem;
+    }
+    #servicios .flex-wrap span {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+    .fixed.bottom-5.right-5 a,
+    .fixed.bottom-5.right-5 button {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* ══════════════════════════════════════════════════
+   LANDSCAPE PHONES (short viewport)
+   ══════════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+    #inicio {
+        min-height: 100vh;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    #inicio h1 {
+        font-size: 1.35rem;
+    }
+    section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 }
