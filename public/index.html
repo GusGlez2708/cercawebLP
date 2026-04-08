@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=1280">
     <meta name="format-detection" content="telephone=no">
     <meta name="description" content="CercaGlez - Instalación, reparación y mantenimiento de malla ciclónica en Mérida, Yucatán. 20+ años de experiencia.">
     <title>CercaGlez | Malla Ciclónica en Mérida</title>
@@ -20,10 +20,18 @@
 
     <!-- Header -->
     <header class="bg-brand-blue shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 py-2.5 md:py-3 flex justify-between items-center">
+        <div class="container mx-auto px-4 sm:px-6 py-2.5 md:py-3 flex justify-center md:justify-between items-center relative">
+            <!-- Hamburger Button (mobile only, positioned left) -->
+            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-11 h-11 space-y-1.5 focus:outline-none absolute left-4" aria-label="Menú">
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
+            </button>
+            <!-- Logo (centered on mobile, left on desktop) -->
             <div class="flex items-center">
-                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-10 md:h-14 lg:h-16 mr-3">
+                <img src="assets/iclogo/logo.png" alt="CERCA GLEZ Logo" class="h-12 md:h-14 lg:h-16">
             </div>
+            <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center space-x-6 lg:space-x-8">
                 <a href="#inicio"
                     class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">INICIO</a>
@@ -36,6 +44,7 @@
                 <a href="#contacto"
                     class="nav-link text-white hover:text-brand-orange transition duration-300 font-medium text-sm lg:text-base">CONTACTO</a>
             </nav>
+            <!-- Desktop CTA -->
             <div class="hidden md:block">
                 <a href="https://wa.me/5219999092270?text=Buen%20d%C3%ADa%2C%20quisiera%20una%20cotizaci%C3%B3n."
                     target="_blank"
@@ -44,12 +53,6 @@
                     <span>Cotiza Ya</span>
                 </a>
             </div>
-            <!-- Hamburger Button (mobile only) -->
-            <button id="hamburger-btn" class="md:hidden flex flex-col justify-center items-center w-11 h-11 space-y-1.5 focus:outline-none" aria-label="Menú">
-                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
-                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
-                <span class="hamburger-line block w-7 h-0.5 bg-white rounded transition-all duration-300"></span>
-            </button>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="mobile-menu md:hidden">
