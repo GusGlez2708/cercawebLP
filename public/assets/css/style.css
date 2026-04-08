@@ -575,9 +575,9 @@ img, video {
     letter-spacing: 0.04em;
 }
 
-/* ── Hero – Mobile ── */
+/* ── Hero ── */
 #inicio {
-    min-height: 85vh; /* shorter so CTA is visible without scrolling */
+    min-height: 400px;
 }
 #inicio h1 {
     font-size: 1.5rem;
@@ -752,7 +752,7 @@ footer p {
 
     /* Hero */
     #inicio {
-        min-height: 90vh;
+        min-height: 500px;
     }
     #inicio h1 {
         font-size: 2.5rem;
@@ -878,7 +878,7 @@ footer p {
 
     /* Hero */
     #inicio {
-        min-height: 100vh;
+        min-height: 600px;
     }
     #inicio h1 {
         font-size: 3.5rem;
@@ -1064,7 +1064,7 @@ footer p {
    ══════════════════════════════════════════════════ */
 @media (max-height: 500px) and (orientation: landscape) {
     #inicio {
-        min-height: 100vh;
+        min-height: 350px;
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
