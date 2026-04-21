@@ -89,17 +89,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+    // Helper: scroll to section with header offset
+    function scrollToSection(targetId) {
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 70;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 10;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+
     if (hamburgerBtn && mobileMenu) {
         hamburgerBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('open');
             hamburgerBtn.classList.toggle('hamburger-active');
         });
 
-        // Close menu when clicking a nav link
+        // Close menu when clicking a nav link – wait for collapse then scroll
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
                 mobileMenu.classList.remove('open');
                 hamburgerBtn.classList.remove('hamburger-active');
+                // Wait for menu collapse animation (350ms) before scrolling
+                setTimeout(() => scrollToSection(targetId), 400);
             });
         });
 
@@ -111,6 +125,14 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Desktop nav links – JS-controlled smooth scroll with offset
+    document.querySelectorAll('header nav a.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToSection(link.getAttribute('href'));
+        });
+    });
 
     // --- Carousel Logic ---
     const images = [

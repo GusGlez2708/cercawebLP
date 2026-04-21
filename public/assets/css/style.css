@@ -14,7 +14,7 @@
 html {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
-    scroll-padding-top: 60px; /* offset for sticky header on mobile */
+    scroll-padding-top: 75px; /* offset for sticky header on mobile */
 }
 
 body {
@@ -912,7 +912,7 @@ footer p {
    ══════════════════════════════════════════════════ */
 @media (min-width: 768px) {
     html {
-        scroll-padding-top: 72px;
+        scroll-padding-top: 85px;
     }
 
     /* Hero */
@@ -1060,7 +1060,7 @@ footer p {
    ══════════════════════════════════════════════════ */
 @media (min-width: 1024px) {
     html {
-        scroll-padding-top: 80px;
+        scroll-padding-top: 100px;
     }
 
     /* Hero */
