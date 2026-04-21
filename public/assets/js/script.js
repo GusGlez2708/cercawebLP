@@ -193,7 +193,10 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/puerta1.jpeg' },
         { type: 'image', src: 'assets/images/seguridad15.jpeg' },
         { type: 'image', src: 'assets/images/seguridad16.jpeg' },
-        { type: 'image', src: 'assets/images/seguridad17.jpeg' }
+        { type: 'image', src: 'assets/images/seguridad17.jpeg' },
+        { type: 'image', src: 'assets/images/mallasombra2.jpeg' },
+        { type: 'image', src: 'assets/images/mallasombra3.jpeg' },
+        { type: 'image', src: 'assets/images/mallasombra4.jpeg' }
     ];
 
     const scrollingContent = document.getElementById('scrolling-content');
