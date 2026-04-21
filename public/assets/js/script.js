@@ -155,9 +155,9 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/rejacero1.jpg' }, { type: 'image', src: 'assets/images/rejacero2.jpg' },
         { type: 'image', src: 'assets/images/rejacero3.jpg' }, { type: 'image', src: 'assets/images/rejacero4.jpg' },
         { type: 'image', src: 'assets/images/rejacero5.jpg' }, { type: 'image', src: 'assets/images/rejacero6.jpg' },
+        { type: 'image', src: 'assets/images/rejacero7.jpg' }, { type: 'image', src: 'assets/images/rejacero8.jpg' },
         { type: 'image', src: 'assets/images/rejacero9.jpg' }, { type: 'image', src: 'assets/images/rejacero10.jpg' },
         { type: 'image', src: 'assets/images/rejacero11.jpg' }, { type: 'image', src: 'assets/images/rejacero12.jpg' },
-        { type: 'image', src: 'assets/images/rejacero13.jpg' }, { type: 'image', src: 'assets/images/rejacero14.jpg' },
         { type: 'video', src: 'assets/images/rejacerovd1.mp4' }, { type: 'video', src: 'assets/images/rejacerovd2.mp4' },
         { type: 'image', src: 'assets/images/galvanizada8.jpg' },
         { type: 'image', src: 'assets/images/galvanizada9.jpeg' },
@@ -175,9 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/rejacero16.jpeg' },
         { type: 'image', src: 'assets/images/rejacero17.jpeg' },
         { type: 'image', src: 'assets/images/rejacero18.jpeg' },
-        { type: 'image', src: 'assets/images/rejacero19.jpeg' },
-        { type: 'image', src: 'assets/images/rejacero20.jpeg' },
-        { type: 'image', src: 'assets/images/rejacero21.png' },
+        { type: 'image', src: 'assets/images/rejacero19.png' },
         { type: 'image', src: 'assets/images/seguridad9.jpeg' },
         { type: 'image', src: 'assets/images/seguridad10.jpeg' },
         { type: 'image', src: 'assets/images/seguridad11.jpeg' },
@@ -196,7 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/seguridad17.jpeg' },
         { type: 'image', src: 'assets/images/mallasombra2.jpeg' },
         { type: 'image', src: 'assets/images/mallasombra3.jpeg' },
-        { type: 'image', src: 'assets/images/mallasombra4.jpeg' }
+        { type: 'image', src: 'assets/images/mallasombra4.jpeg' },
+        { type: 'image', src: 'assets/images/porton4.jpeg' },
+        { type: 'image', src: 'assets/images/puerta2.jpeg' },
+        { type: 'image', src: 'assets/images/puerta3.jpeg' },
+        { type: 'image', src: 'assets/images/puerta4.jpg' },
+        { type: 'image', src: 'assets/images/rejacero13.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero14.jpeg' }
     ];
 
     const scrollingContent = document.getElementById('scrolling-content');
