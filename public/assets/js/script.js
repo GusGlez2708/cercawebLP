@@ -730,4 +730,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         statItems.forEach(item => counterObserver.observe(item));
     }
+
+    // --- Services Mini Carousels ---
+    const miniCarousels = document.querySelectorAll('.card-mini-carousel');
+    miniCarousels.forEach(carousel => {
+        const slides = carousel.querySelectorAll('.mini-slide');
+        let currentSlide = 0;
+        if (slides.length > 1) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('opacity-100');
+                slides[currentSlide].classList.add('opacity-0');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.remove('opacity-0');
+                slides[currentSlide].classList.add('opacity-100');
+            }, 2500); // changes every 2.5 seconds
+        }
+    });
+
 });
