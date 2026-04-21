@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filename.startsWith('galvanizada')) return 'galvanizada';
         if (filename.startsWith('rejacero')) return 'rejacero';
         if (filename.startsWith('mallasombra')) return 'mallasombra';
-        if (filename.startsWith('porton')) return 'porton';
+        if (filename.startsWith('porton') || filename.startsWith('puerta')) return 'porton';
         if (filename.startsWith('pvc')) return 'pvc';
         return 'otro';
     }
