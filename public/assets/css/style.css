@@ -686,8 +686,8 @@ img, video {
     top: 50%;
     transform: translateY(-50%);
     z-index: 15;
-    width: 44px;
-    height: 44px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -719,14 +719,14 @@ img, video {
     transform: translateY(-50%) scale(0.95);
 }
 .hero-arrow svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 }
 .hero-arrow-prev {
-    left: 12px;
+    left: 8px;
 }
 .hero-arrow-next {
-    right: 12px;
+    right: 8px;
 }
 
 /* Hero Slide Indicators */
