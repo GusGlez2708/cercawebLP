@@ -455,7 +455,8 @@ img, video {
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.18);
     padding: 8px;
-    width: 220px;
+    min-width: 200px;
+    white-space: nowrap;
 }
 .phone-options a {
     min-height: 44px;
@@ -464,6 +465,72 @@ img, video {
     padding: 10px 16px;
     border-radius: 8px;
     font-weight: 500;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+/* ── WhatsApp Selector Modal ── */
+.wa-selector-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.55);
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    animation: wa-fade-in 0.2s ease;
+}
+.wa-selector-overlay.open {
+    display: flex;
+}
+@keyframes wa-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.wa-selector-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    width: 100%;
+    max-width: 340px;
+    overflow: hidden;
+    animation: wa-slide-up 0.25s ease;
+}
+@keyframes wa-slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.wa-selector-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+.wa-selector-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s ease;
+}
+.wa-selector-option:last-child {
+    border-bottom: none;
+}
+.wa-selector-option:hover {
+    background-color: #f0fdf4;
+}
+.wa-selector-option:active {
+    background-color: #dcfce7;
 }
 
 /* ── Scrolling Gallery ── */
@@ -575,10 +642,107 @@ img, video {
     letter-spacing: 0.04em;
 }
 
-/* ── Hero ── */
+/* ── Hero Slideshow ── */
 #inicio {
     min-height: 400px;
+    position: relative;
 }
+.hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* Hero Arrows – Liquid Glass Effect */
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 15;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    /* Liquid glass effect */
+    background: rgba(235, 118, 39, 0.18);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1.5px solid rgba(235, 118, 39, 0.25);
+    box-shadow:
+        0 4px 16px rgba(235, 118, 39, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
+    transition: all 0.3s ease;
+    padding: 0;
+}
+.hero-arrow:hover {
+    background: rgba(235, 118, 39, 0.32);
+    border-color: rgba(235, 118, 39, 0.45);
+    box-shadow:
+        0 6px 24px rgba(235, 118, 39, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: translateY(-50%) scale(1.08);
+}
+.hero-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+.hero-arrow svg {
+    width: 22px;
+    height: 22px;
+}
+.hero-arrow-prev {
+    left: 12px;
+}
+.hero-arrow-next {
+    right: 12px;
+}
+
+/* Hero Slide Indicators */
+.hero-indicators {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    display: flex;
+    gap: 8px;
+}
+.hero-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+.hero-dot.active {
+    background: #eb7627;
+    border-color: #eb7627;
+    transform: scale(1.2);
+}
+.hero-dot:hover:not(.active) {
+    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.2);
+}
+
 #inicio h1 {
     font-size: 1.5rem;
     line-height: 1.35;
@@ -589,9 +753,10 @@ img, video {
     padding-right: 1rem;
 }
 /* Hero CTA button */
-#inicio a[href*="wa.me"] {
+.hero-cta-btn {
     padding: 14px 24px;
     font-size: 1rem;
+    border: none;
 }
 
 /* ── Sections – Mobile ── */
@@ -758,9 +923,31 @@ footer p {
         font-size: 2.5rem;
         line-height: 1.25;
     }
-    #inicio a[href*="wa.me"] {
+    .hero-cta-btn {
         padding: 16px 32px;
         font-size: 1.1rem;
+    }
+    .hero-arrow {
+        width: 50px;
+        height: 50px;
+    }
+    .hero-arrow svg {
+        width: 26px;
+        height: 26px;
+    }
+    .hero-arrow-prev {
+        left: 20px;
+    }
+    .hero-arrow-next {
+        right: 20px;
+    }
+    .hero-indicators {
+        bottom: 20px;
+        gap: 10px;
+    }
+    .hero-dot {
+        width: 12px;
+        height: 12px;
     }
 
     /* Sections */
@@ -884,9 +1071,23 @@ footer p {
         font-size: 3.5rem;
         line-height: 1.2;
     }
-    #inicio a[href*="wa.me"] {
+    .hero-cta-btn {
         padding: 18px 36px;
         font-size: 1.15rem;
+    }
+    .hero-arrow {
+        width: 56px;
+        height: 56px;
+    }
+    .hero-arrow svg {
+        width: 28px;
+        height: 28px;
+    }
+    .hero-arrow-prev {
+        left: 32px;
+    }
+    .hero-arrow-next {
+        right: 32px;
     }
 
     /* Sections */

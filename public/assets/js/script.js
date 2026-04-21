@@ -9,7 +9,80 @@ tailwind.config = {
     }
 }
 
+// --- WhatsApp Selector Modal ---
+function openWhatsAppSelector() {
+    document.getElementById('wa-selector').classList.add('open');
+}
+function closeWhatsAppSelector() {
+    document.getElementById('wa-selector').classList.remove('open');
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Close WhatsApp selector on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeWhatsAppSelector();
+        }
+    });
+
+    // --- Hero Slideshow Logic ---
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const heroDots = document.querySelectorAll('.hero-dot');
+    const heroPrev = document.getElementById('hero-prev');
+    const heroNext = document.getElementById('hero-next');
+    let currentSlide = 0;
+    let heroInterval = null;
+
+    function goToSlide(index) {
+        heroSlides.forEach(s => s.classList.remove('active'));
+        heroDots.forEach(d => d.classList.remove('active'));
+        currentSlide = (index + heroSlides.length) % heroSlides.length;
+        heroSlides[currentSlide].classList.add('active');
+        heroDots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    function startHeroAutoplay() {
+        stopHeroAutoplay();
+        heroInterval = setInterval(nextSlide, 5000);
+    }
+    function stopHeroAutoplay() {
+        if (heroInterval) clearInterval(heroInterval);
+    }
+
+    if (heroSlides.length > 0) {
+        heroPrev.addEventListener('click', () => { prevSlide(); startHeroAutoplay(); });
+        heroNext.addEventListener('click', () => { nextSlide(); startHeroAutoplay(); });
+        heroDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.slide));
+                startHeroAutoplay();
+            });
+        });
+
+        // Pause on hover (desktop)
+        const heroSection = document.getElementById('inicio');
+        heroSection.addEventListener('mouseenter', stopHeroAutoplay);
+        heroSection.addEventListener('mouseleave', startHeroAutoplay);
+
+        // Touch swipe for hero slideshow
+        let heroTouchX = 0;
+        heroSection.addEventListener('touchstart', (e) => {
+            heroTouchX = e.touches[0].clientX;
+        }, { passive: true });
+        heroSection.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - heroTouchX;
+            if (Math.abs(dx) > 50) {
+                if (dx > 0) prevSlide(); else nextSlide();
+                startHeroAutoplay();
+            }
+        }, { passive: true });
+
+        startHeroAutoplay();
+    }
 
     // --- Mobile Hamburger Menu Logic ---
     const hamburgerBtn = document.getElementById('hamburger-btn');
@@ -63,7 +136,32 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/rejacero9.jpg' }, { type: 'image', src: 'assets/images/rejacero10.jpg' },
         { type: 'image', src: 'assets/images/rejacero11.jpg' }, { type: 'image', src: 'assets/images/rejacero12.jpg' },
         { type: 'image', src: 'assets/images/rejacero13.jpg' }, { type: 'image', src: 'assets/images/rejacero14.jpg' },
-        { type: 'video', src: 'assets/images/rejacerovd1.mp4' }, { type: 'video', src: 'assets/images/rejacerovd2.mp4' }
+        { type: 'video', src: 'assets/images/rejacerovd1.mp4' }, { type: 'video', src: 'assets/images/rejacerovd2.mp4' },
+        { type: 'image', src: 'assets/images/galvanizada8.jpg' },
+        { type: 'image', src: 'assets/images/galvanizada9.jpeg' },
+        { type: 'image', src: 'assets/images/galvanizada10.jpeg' },
+        { type: 'image', src: 'assets/images/galvanizada11.jpeg' },
+        { type: 'image', src: 'assets/images/mallasombra1.jpeg' },
+        { type: 'image', src: 'assets/images/porton1.jpeg' },
+        { type: 'image', src: 'assets/images/porton2.jpeg' },
+        { type: 'image', src: 'assets/images/porton3.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad17.jpg' },
+        { type: 'image', src: 'assets/images/privacidad18.jpeg' },
+        { type: 'image', src: 'assets/images/pvc1.jpg' },
+        { type: 'image', src: 'assets/images/pvc2.jpg' },
+        { type: 'image', src: 'assets/images/rejacero15.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero16.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero17.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero18.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero19.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero20.jpeg' },
+        { type: 'image', src: 'assets/images/rejacero21.png' },
+        { type: 'image', src: 'assets/images/seguridad9.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad10.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad11.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad12.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad13.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad14.jpeg' }
     ];
 
     const scrollingContent = document.getElementById('scrolling-content');
@@ -306,6 +404,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filename.startsWith('privacidad')) return 'privacidad';
         if (filename.startsWith('galvanizada')) return 'galvanizada';
         if (filename.startsWith('rejacero')) return 'rejacero';
+        if (filename.startsWith('mallasombra')) return 'mallasombra';
+        if (filename.startsWith('porton')) return 'porton';
+        if (filename.startsWith('pvc')) return 'pvc';
         return 'otro';
     }
 

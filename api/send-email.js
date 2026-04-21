@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
     const mailOptions = {
         from: `"COTIZACION SITIO WEB" <${process.env.SMTP_USER}>`,
-        to: 'atencioncercaglez@gmail.com',
+        to: 'contacto@cercaglez.com',
         subject: `Nueva solicitud de cotización de ${safeName}`,
         html: `
             <b>Nombre:</b> ${safeName}<br>
