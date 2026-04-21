@@ -2,7 +2,7 @@ tailwind.config = {
     theme: {
         extend: {
             colors: {
-                'brand-blue': '#031630',
+                'brand-blue': '#0f1d43',
                 'brand-orange': '#eb7627',
             }
         }
