@@ -134,6 +134,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Floating Action Button (Cotización) – JS-controlled smooth scroll
+    const fabContacto = document.getElementById('fab-contacto');
+    if (fabContacto) {
+        fabContacto.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToSection('#contacto');
+        });
+    }
+
     // --- Carousel Logic ---
     const images = [
         { type: 'image', src: 'assets/images/seguridad1.jpg' }, { type: 'image', src: 'assets/images/seguridad2.jpg' },
