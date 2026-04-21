@@ -183,7 +183,17 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/seguridad11.jpeg' },
         { type: 'image', src: 'assets/images/seguridad12.jpeg' },
         { type: 'image', src: 'assets/images/seguridad13.jpeg' },
-        { type: 'image', src: 'assets/images/seguridad14.jpeg' }
+        { type: 'image', src: 'assets/images/seguridad14.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad19.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad20.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad21.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad22.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad23.jpeg' },
+        { type: 'image', src: 'assets/images/privacidad24.jpeg' },
+        { type: 'image', src: 'assets/images/puerta1.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad15.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad16.jpeg' },
+        { type: 'image', src: 'assets/images/seguridad17.jpeg' }
     ];
 
     const scrollingContent = document.getElementById('scrolling-content');
