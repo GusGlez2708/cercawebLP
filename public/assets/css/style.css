@@ -65,6 +65,18 @@ img, video {
 }
 .stat-number.pulse { animation: count-up-pulse 0.4s ease-out; }
 
+@keyframes form-highlight-jump {
+    0%   { transform: translateY(0); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+    20%  { transform: translateY(-12px); box-shadow: 0 0 0 4px rgba(235, 118, 39, 0.8), 0 30px 60px -15px rgba(235, 118, 39, 0.4); }
+    40%  { transform: translateY(0); box-shadow: 0 0 0 4px rgba(235, 118, 39, 0.8), 0 25px 50px -12px rgba(0,0,0,0.25); }
+    60%  { transform: translateY(-6px); box-shadow: 0 0 0 4px rgba(235, 118, 39, 0.8), 0 28px 55px -15px rgba(235, 118, 39, 0.3); }
+    80%  { transform: translateY(0); box-shadow: 0 0 0 4px rgba(235, 118, 39, 0.4), 0 25px 50px -12px rgba(0,0,0,0.25); }
+    100% { transform: translateY(0); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+}
+.animate-form-jump {
+    animation: form-highlight-jump 1.2s ease-in-out;
+}
+
 /* ── Lightbox (global) ── */
 .lightbox {
     display: none;

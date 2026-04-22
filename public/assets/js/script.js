@@ -134,12 +134,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Floating Action Button (Cotización) – JS-controlled smooth scroll
+    // Floating Action Button (Cotización) – JS-controlled smooth scroll directly to form
     const fabContacto = document.getElementById('fab-contacto');
     if (fabContacto) {
         fabContacto.addEventListener('click', (e) => {
             e.preventDefault();
-            scrollToSection('#contacto');
+            // Scroll directly to the form container
+            scrollToSection('#form-container');
+            
+            // Trigger the jump/highlight animation
+            const formContainer = document.getElementById('form-container');
+            if (formContainer) {
+                // Reset animation
+                formContainer.classList.remove('animate-form-jump');
+                // Force reflow
+                void formContainer.offsetWidth;
+                // Add animation
+                formContainer.classList.add('animate-form-jump');
+            }
         });
     }
 
