@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             scrollToSection(link.getAttribute('href'));
+            link.blur(); // Remove focus to prevent sticky hover on touch devices
         });
     });
 
@@ -695,8 +696,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (sections.length && navLinks.length) {
         const observerOptions = {
             root: null, // relative to the viewport
-            rootMargin: '0px',
-            threshold: 0.4 // 40% of the section must be visible
+            rootMargin: '-100px 0px -40% 0px',
+            threshold: 0 // trigger as soon as it crosses the margins
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
