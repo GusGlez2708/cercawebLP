@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             // Scroll directly to the form container
             scrollToSection('#form-container');
-            
+
             // Trigger the jump/highlight animation
             const formContainer = document.getElementById('form-container');
             if (formContainer) {
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/rejacero7.jpg' }, { type: 'image', src: 'assets/images/rejacero8.jpg' },
         { type: 'image', src: 'assets/images/rejacero9.jpg' }, { type: 'image', src: 'assets/images/rejacero10.jpg' },
         { type: 'image', src: 'assets/images/rejacero11.jpg' }, { type: 'image', src: 'assets/images/rejacero12.jpg' },
-        { type: 'video', src: 'assets/images/rejacerovd1.mp4' }, { type: 'video', src: 'assets/images/rejacerovd2.mp4' },
+        { type: 'video', src: 'assets/images/rejacerovd1.mp4', poster: 'assets/images/rejacerovdpt1.png' }, { type: 'video', src: 'assets/images/rejacerovd2.mp4', poster: 'assets/images/rejacerovdpt2.png' },
         { type: 'image', src: 'assets/images/galvanizada8.jpg' },
         { type: 'image', src: 'assets/images/galvanizada9.jpeg' },
         { type: 'image', src: 'assets/images/galvanizada10.jpeg' },
@@ -222,7 +222,16 @@ document.addEventListener('DOMContentLoaded', function () {
         { type: 'image', src: 'assets/images/puerta3.jpeg' },
         { type: 'image', src: 'assets/images/puerta4.jpg' },
         { type: 'image', src: 'assets/images/rejacero13.jpeg' },
-        { type: 'image', src: 'assets/images/rejacero14.jpeg' }
+        { type: 'image', src: 'assets/images/rejacero14.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos1.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos2.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos3.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos4.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos5.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos6.jpeg' },
+        { type: 'image', src: 'assets/images/bardapicos7.jpeg' },
+        { type: 'image', src: 'assets/images/porton5.jpeg' },
+        { type: 'video', src: 'assets/images/portonvd1.mp4', poster: 'assets/images/portonvd1pt1.png' }
     ];
 
     const scrollingContent = document.getElementById('scrolling-content');
@@ -237,11 +246,17 @@ document.addEventListener('DOMContentLoaded', function () {
             div.onclick = () => openLightbox(div, 'image');
         } else {
             div.className += ' relative cursor-pointer';
+            let mediaHtml = '';
+            if (item.poster) {
+                mediaHtml = `<img src="${item.poster}" class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-3 md:border-4 border-brand-orange pointer-events-none" loading="lazy">`;
+            } else {
+                mediaHtml = `<video class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-3 md:border-4 border-brand-orange pointer-events-none" preload="none"><source src="${item.src}" type="video/mp4"></video>`;
+            }
             div.innerHTML = `
-                <video class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full object-cover border-3 md:border-4 border-brand-orange pointer-events-none" preload="none"><source src="${item.src}" type="video/mp4"></video>
+                ${mediaHtml}
                 <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full pointer-events-none"><svg class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></div>
             `;
-            div.onclick = () => openLightbox(div, 'video');
+            div.onclick = () => openLightbox(div, 'video', item.src);
         }
         scrollingContent.appendChild(div);
     });
@@ -344,16 +359,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentLightboxList = [];
 
     // Open lightbox for carousel (no navigation)
-    window.openLightbox = function (element, type) {
+    window.openLightbox = function (element, type, srcOverride) {
         event.stopPropagation();
         currentLightboxList = [];
         currentLightboxIndex = -1;
         if (type === 'image') {
-            lightboxImg.src = element.getElementsByTagName('img')[0].src;
+            lightboxImg.src = srcOverride || element.getElementsByTagName('img')[0].src;
             lightboxImg.classList.remove('hidden');
             lightboxVideo.classList.add('hidden');
         } else if (type === 'video') {
-            lightboxVideo.src = element.getElementsByTagName('source')[0].src;
+            lightboxVideo.src = srcOverride || element.getElementsByTagName('source')[0].src;
             lightboxVideo.classList.remove('hidden');
             lightboxImg.classList.add('hidden');
         }
@@ -468,6 +483,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (filename.startsWith('mallasombra')) return 'mallasombra';
         if (filename.startsWith('porton') || filename.startsWith('puerta')) return 'porton';
         if (filename.startsWith('pvc')) return 'pvc';
+        if (filename.startsWith('bardapicos')) return 'bardapicos';
         return 'otro';
     }
 
@@ -518,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 div.innerHTML = `<img data-src="${item.src}" alt="Proyecto">`;
             } else {
                 div.innerHTML = `
-                    <video data-src="${item.src}" preload="none" muted playsinline></video>
+                    <video data-src="${item.src}" ${item.poster ? `poster="${item.poster}"` : ''} preload="none" muted playsinline></video>
                     <div class="gallery-item-video-icon">
                         <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                     </div>`;
@@ -648,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const formData = new FormData(contactForm);
 
-            fetch('/api/send-email', {
+            fetch('backend/send_email.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(Object.fromEntries(formData))
