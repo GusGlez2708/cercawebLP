@@ -46,12 +46,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mail = new PHPMailer(true);
 
     try {
+        // Cargar configuración de manera segura (fuera de GitHub)
+        $configFile = dirname(__DIR__, 2) . '/config.php';
+        if (file_exists($configFile)) {
+            $config = require $configFile;
+        } else {
+            $config = [
+                'SMTP_USER' => getenv('SMTP_USER') ?: '',
+                'SMTP_PASS' => getenv('SMTP_PASS') ?: ''
+            ];
+        }
+
         // Configuración del servidor
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'gonzalezrosasgustavo27@gmail.com'; 
-        $mail->Password   = 'jillrvvfcpukzpaj'; 
+        $mail->Username   = $config['SMTP_USER']; 
+        $mail->Password   = $config['SMTP_PASS']; 
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = 465;
         $mail->CharSet    = 'UTF-8';
