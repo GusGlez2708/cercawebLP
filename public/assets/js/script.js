@@ -533,11 +533,19 @@ document.addEventListener('DOMContentLoaded', function () {
             if (item.type === 'image') {
                 div.innerHTML = `<img data-src="${item.src}" alt="Proyecto">`;
             } else {
-                div.innerHTML = `
-                    <video data-src="${item.src}" ${item.poster ? `poster="${item.poster}"` : ''} preload="none" muted playsinline></video>
-                    <div class="gallery-item-video-icon">
-                        <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                    </div>`;
+                if (item.poster) {
+                    div.innerHTML = `
+                        <img data-src="${item.poster}" alt="Video Preview">
+                        <div class="gallery-item-video-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                        </div>`;
+                } else {
+                    div.innerHTML = `
+                        <video data-src="${item.src}" preload="none" muted playsinline></video>
+                        <div class="gallery-item-video-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                        </div>`;
+                }
             }
             div.addEventListener('click', () => {
                 window.openLightboxDirect(item.src, item.type, currentFilteredList, index);

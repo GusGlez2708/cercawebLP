@@ -497,82 +497,67 @@ img, video {
     font-size: 0.95rem;
 }
 
-/* ── FAB Pill – Expanding Label on Hover ── */
+/* ── FAB Pill – Expanding Label on Hover (Laptops/Desktops ONLY) ── */
 .fab-pill {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     width: 56px;
     height: 56px;
     border-radius: 9999px;
-    overflow: hidden;
     border: none;
     text-decoration: none;
-    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    /* transition removed from base, added in media query */
 }
 .fab-icon-wrap {
     width: 56px;
     height: 56px;
-    min-width: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    position: relative;
+    z-index: 2;
 }
 .fab-label {
     white-space: nowrap;
     font-weight: 700;
     font-size: 0.875rem;
     opacity: 0;
-    padding-left: 16px;
-    transition: opacity 0.25s ease 0.1s;
+    position: absolute;
+    right: 56px;
+    padding-right: 16px;
     pointer-events: none;
-}
-.fab-pill:hover .fab-label {
-    opacity: 1;
+    /* transition removed from base */
 }
 
-/* Specific widths per button on hover */
-#phone-fab:hover {
-    width: 170px;
-}
-#wa-fab:hover {
-    width: 180px;
-}
-#fab-contacto:hover {
-    width: 240px;
-}
-
-/* Responsive: larger base size on md+ */
-@media (min-width: 768px) {
+/* Specific widths and interactions ONLY for screens > 1024px (Laptops) */
+@media (min-width: 1024px) {
     .fab-pill {
-        width: 64px;
-        height: 64px;
-    }
-    .fab-icon-wrap {
-        width: 64px;
-        height: 64px;
-        min-width: 64px;
+        justify-content: flex-end;
+        transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .fab-label {
-        font-size: 1rem;
+        transition: opacity 0.25s ease 0.1s;
     }
-    #phone-fab:hover {
-        width: 190px;
+    .fab-pill:hover .fab-label {
+        opacity: 1;
     }
-    #wa-fab:hover {
-        width: 200px;
-    }
-    #fab-contacto:hover {
-        width: 270px;
-    }
+    #phone-fab:hover { width: 190px; }
+    #wa-fab:hover { width: 200px; }
+    #fab-contacto:hover { width: 270px; }
+}
+
+/* Responsive base sizes (Tablet/Desktop) */
+@media (min-width: 768px) {
+    .fab-pill { width: 64px; height: 64px; }
+    .fab-icon-wrap { width: 64px; height: 64px; }
+    .fab-label { font-size: 1rem; right: 64px; }
 }
 
 /* Active press effect */
-.fab-pill:active {
-    transform: scale(0.95);
-}
+.fab-pill:active { transform: scale(0.95); }
 
 /* ── WhatsApp Selector Modal ── */
 .wa-selector-overlay {
